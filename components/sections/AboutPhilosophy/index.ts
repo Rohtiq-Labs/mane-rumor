@@ -1,0 +1,1 @@
+export { AboutPhilosophy } from "./AboutPhilosophy";

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mane Rumor — Austin, Texas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=Archivo:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  :root{
+    --canvas:#F5E6DF;
+    --ink:#262322;
+    --body:#5F5855;
+    --oxblood:#742F2D;
+    --paper:#FFFCFA;
+    --mist:#FAF4F1;
+    --hairline:#E7D8D1;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--canvas);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  img{display:block;width:100%;height:100%;object-fit:cover;}
+  .display{font-family:'Fraunces',serif;}
+  .label{
+    font-family:'Archivo',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:0.72rem;
+    color:var(--oxblood);
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1400px;margin:0 auto;padding:0 6vw;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ============ NAV ============ */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:2rem 6vw;
+    mix-blend-mode:difference;
+    color:#fff;
+  }
+  nav .logo{font-family:'Fraunces',serif;font-weight:500;font-size:1.15rem;letter-spacing:0.02em;}
+  nav ul{display:flex;gap:2.6rem;list-style:none;}
+  nav a{font-family:'Archivo',sans-serif;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;}
+  @media(max-width:720px){ nav ul{gap:1.4rem;} nav a{font-size:0.62rem;} }
+
+  /* ============ stitch divider (signature element) ============ */
+  .stitch{
+    width:100%;height:1px;position:relative;
+    background:var(--hairline);
+  }
+  .stitch::after{
+    content:'';position:absolute;top:-1px;left:0;height:2px;width:0;
+    background:var(--oxblood);
+  }
+  .stitch.run::after{ width:100%; transition:width 1.4s cubic-bezier(.65,0,.35,1); }
+
+  /* ============ CHAPTER 1 — ARRIVAL ============ */
+  .arrival{
+    height:100vh;min-height:640px;position:relative;
+    display:flex;align-items:flex-end;
+  }
+  .arrival .frame{
+    position:absolute;inset:0;overflow:hidden;
+  }
+  .arrival .frame img{
+    filter:saturate(0.9) contrast(1.02);
+    transform:scale(1.08);
+  }
+  .arrival .frame::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(38,35,34,0.15) 0%, rgba(38,35,34,0.05) 40%, rgba(38,35,34,0.55) 100%);
+  }
+  .arrival-content{
+    position:relative;z-index:2;color:var(--paper);
+    padding:0 6vw 6vw;width:100%;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:3rem;
+  }
+  .arrival-content h1{
+    font-size:clamp(3rem,9vw,7.2rem);
+    font-weight:400;
+    line-height:0.98;
+    letter-spacing:-0.01em;
+    max-width:14ch;
+  }
+  .arrival-content h1 em{font-style:italic;font-weight:400;color:var(--canvas);}
+  .arrival-cta{
+    flex-shrink:0;text-align:right;
+  }
+  .arrival-cta .label{color:var(--canvas);margin-bottom:1rem;display:block;}
+  .btn{
+    display:inline-block;
+    font-family:'Archivo',sans-serif;font-weight:600;font-size:0.72rem;
+    letter-spacing:0.14em;text-transform:uppercase;
+    padding:1.05rem 2.3rem;
+    border:1px solid currentColor;
+    transition:background .4s ease,color .4s ease;
+  }
+  .btn.light{color:var(--paper);}
+  .btn.light:hover{background:var(--paper);color:var(--ink);}
+  .btn.dark{color:var(--oxblood);border-color:var(--oxblood);}
+  .btn.dark:hover{background:var(--oxblood);color:var(--paper);}
+
+  /* ============ CHAPTER 2 — HEALTHY HAIR FIRST ============ */
+  .philosophy{
+    background:var(--mist);
+    padding:9rem 0 10rem;
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:0;align-items:center;
+  }
+  .philosophy .copy{padding:0 6vw 0 6vw;}
+  .philosophy .copy .label{margin-bottom:1.6rem;}
+  .philosophy .copy h2{
+    font-size:clamp(2.4rem,4.6vw,4.1rem);
+    font-weight:400;line-height:1.08;letter-spacing:-0.01em;
+    margin-bottom:2rem;
+  }
+  .philosophy .copy p{
+    font-size:1.05rem;line-height:1.7;color:var(--body);max-width:34ch;
+  }
+  .philosophy .visual{
+    height:90vh;overflow:hidden;
+  }
+  @media(max-width:900px){
+    .philosophy{grid-template-columns:1fr;padding:6rem 0;}
+    .philosophy .visual{height:60vh;order:-1;margin-bottom:3rem;}
+    .philosophy .copy{padding:0 6vw;}
+  }
+
+  /* ============ CHAPTER 3 — TRANSFORMATION AS ART ============ */
+  .gallery{
+    padding:9rem 6vw 10rem;
+    background:var(--canvas);
+  }
+  .gallery .head{margin-bottom:5rem;}
+  .gallery .head .label{margin-bottom:1.4rem;}
+  .gallery .head h2{font-size:clamp(2.2rem,4.2vw,3.6rem);font-weight:400;max-width:16ch;letter-spacing:-0.01em;}
+  .collage{
+    position:relative;
+    height:1180px;
+  }
+  .collage .piece{position:absolute;overflow:hidden;box-shadow:0 30px 60px -30px rgba(38,35,34,0.35);}
+  .collage .p1{width:34%;height:520px;top:0;left:0;}
+  .collage .p2{width:28%;height:340px;top:60px;left:38%;}
+  .collage .p3{width:30%;height:620px;top:0;right:0;}
+  .collage .p4{width:24%;height:300px;top:560px;left:6%;}
+  .collage .p5{width:32%;height:420px;top:440px;left:34%;}
+  .collage .cap{
+    position:absolute;bottom:840px;left:44%;
+    font-family:'Fraunces',serif;font-style:italic;font-size:1.4rem;color:var(--oxblood);
+    max-width:16ch;
+  }
+  @media(max-width:900px){
+    .collage{height:auto;position:static;display:flex;flex-direction:column;gap:1.4rem;}
+    .collage .piece{position:static;width:100% !important;height:340px !important;}
+    .collage .cap{position:static;margin:1rem 0;}
+  }
+
+  /* ============ CHAPTER 4 — MEET THE ARTIST ============ */
+  .artist{
+    background:var(--ink);color:var(--paper);
+    display:grid;grid-template-columns:0.85fr 1.15fr;
+  }
+  .artist .portrait{height:100%;min-height:100vh;overflow:hidden;}
+  .artist .portrait img{filter:grayscale(0.15) contrast(1.05);}
+  .artist .story{
+    padding:9rem 6vw 9rem 5vw;display:flex;flex-direction:column;justify-content:center;
+  }
+  .artist .story .label{color:var(--canvas);margin-bottom:1.6rem;}
+  .artist .story blockquote{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:400;
+    font-size:clamp(1.7rem,3.1vw,2.6rem);line-height:1.3;letter-spacing:-0.005em;
+    margin-bottom:2.4rem;max-width:22ch;
+  }
+  .artist .story p{color:#D9D2CE;font-size:1rem;line-height:1.8;max-width:38ch;margin-bottom:0.8rem;}
+  .artist .story .signature{
+    margin-top:2.6rem;font-family:'Fraunces',serif;font-size:1.05rem;font-style:italic;color:var(--canvas);
+  }
+  @media(max-width:900px){
+    .artist{grid-template-columns:1fr;}
+    .artist .portrait{height:70vh;min-height:0;}
+    .artist .story{padding:5rem 6vw;}
+  }
+
+  /* ============ CHAPTER 5 — THE SIGNATURE EXPERIENCE ============ */
+  .journey{
+    background:var(--mist);padding:9rem 6vw 10rem;position:relative;
+  }
+  .journey .head{text-align:center;margin-bottom:6rem;}
+  .journey .head .label{margin-bottom:1.4rem;}
+  .journey .head h2{font-size:clamp(2.2rem,4.2vw,3.6rem);font-weight:400;letter-spacing:-0.01em;}
+  .journey-line{
+    max-width:900px;margin:0 auto;position:relative;
+  }
+  .journey-line .spine{
+    position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--hairline);transform:translateX(-50%);
+  }
+  .journey-line .spine .fill{
+    position:absolute;top:0;left:0;width:100%;height:0%;background:var(--oxblood);
+  }
+  .step{
+    display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;
+    margin-bottom:4.5rem;position:relative;
+  }
+  .step .dot{
+    width:11px;height:11px;border-radius:50%;background:var(--paper);border:1px solid var(--oxblood);
+    margin:0 auto;position:relative;z-index:2;
+  }
+  .step .side{padding:0 2.4rem;}
+  .step:nth-child(odd) .side.a{text-align:right;}
+  .step:nth-child(even) .side.a{visibility:hidden;}
+  .step:nth-child(even) .side.b{visibility:visible;}
+  .step:nth-child(odd) .side.b{visibility:hidden;}
+  .step .label{margin-bottom:0.6rem;display:block;}
+  .step h3{font-family:'Fraunces',serif;font-weight:400;font-size:1.7rem;margin-bottom:0.5rem;}
+  .step p{color:var(--body);font-size:0.95rem;line-height:1.6;}
+  @media(max-width:760px){
+    .journey-line .spine{left:6px;}
+    .step{grid-template-columns:30px 1fr;gap:1rem;}
+    .step .dot{margin:6px 0 0;}
+    .step .side{padding:0;text-align:left !important;visibility:visible !important;grid-column:2;}
+    .step .side.a{display:none;}
+  }
+
+  /* ============ CHAPTER 6 — SIGNATURE EXPERTISE ============ */
+  .expertise{background:var(--canvas);}
+  .service{
+    display:grid;grid-template-columns:1fr 1fr;min-height:88vh;
+    border-top:1px solid var(--hairline);
+  }
+  .service .img{overflow:hidden;}
+  .service .txt{
+    display:flex;flex-direction:column;justify-content:center;padding:5vw 6vw;
+  }
+  .service .num{font-family:'Archivo',sans-serif;font-size:0.72rem;letter-spacing:.14em;color:var(--body);margin-bottom:1.4rem;}
+  .service h3{font-weight:400;line-height:0.98;letter-spacing:-0.01em;margin-bottom:1.6rem;}
+  .service p{color:var(--body);font-size:1rem;line-height:1.75;max-width:34ch;}
+  .s1 h3{font-family:'Fraunces',serif;font-size:clamp(2.6rem,5.4vw,4.6rem);}
+  .s2 h3{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(2.2rem,4.4vw,3.6rem);}
+  .s3 h3{font-family:'Fraunces',serif;font-size:clamp(2rem,3.6vw,3rem);text-transform:uppercase;letter-spacing:0.02em;}
+  .s4 h3{font-family:'Fraunces',serif;font-size:clamp(2.6rem,5.4vw,4.6rem);font-weight:300;}
+  .service:nth-child(even){direction:rtl;}
+  .service:nth-child(even) .txt{direction:ltr;}
+  @media(max-width:900px){
+    .service{grid-template-columns:1fr;min-height:0;direction:ltr !important;}
+    .service .img{height:60vh;}
+    .service .txt{padding:3.5rem 6vw;}
+  }
+
+  /* ============ CHAPTER 7 — SOCIAL PROOF ============ */
+  .proof{
+    background:var(--mist);padding:9rem 6vw;
+  }
+  .quote-block{
+    max-width:1000px;margin:0 auto;padding:5rem 0;border-bottom:1px solid var(--hairline);
+  }
+  .quote-block:last-child{border-bottom:none;}
+  .quote-block p{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:400;
+    font-size:clamp(1.5rem,3vw,2.5rem);line-height:1.35;color:var(--ink);margin-bottom:1.8rem;
+  }
+  .quote-block .who{font-family:'Archivo',sans-serif;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--oxblood);font-weight:600;}
+
+  /* ============ CHAPTER 8 — BOOK ============ */
+  .cta{
+    min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;background:var(--ink);color:var(--paper);padding:6rem 6vw;
+  }
+  .cta .label{color:var(--canvas);margin-bottom:2rem;}
+  .cta h2{
+    font-family:'Fraunces',serif;font-weight:400;letter-spacing:-0.01em;line-height:1.05;
+    font-size:clamp(2.6rem,7vw,5.6rem);max-width:16ch;margin-bottom:3rem;
+  }
+  .cta h2 em{font-style:italic;color:var(--canvas);}
+
+  footer{
+    background:var(--ink);color:#B9AFA9;padding:3rem 6vw;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+    font-family:'Archivo',sans-serif;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+
+  /* reveal utility */
+  .reveal{opacity:0;transform:translateY(28px);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#top">Mane Rumor</a>
+  <ul>
+    <li><a href="#philosophy">Experience</a></li>
+    <li><a href="#gallery">Transformations</a></li>
+    <li><a href="#book">Book</a></li>
+  </ul>
+</nav>
+
+<!-- CHAPTER 1 — ARRIVAL -->
+<section class="arrival" id="top">
+  <div class="frame">
+    <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=2000&q=80" alt="Rich dimensional hair color, close editorial detail">
+  </div>
+  <div class="arrival-content">
+    <h1 class="display">Hair, held<br>to a <em>higher</em> rumor.</h1>
+    <div class="arrival-cta">
+      <span class="label">Austin, Texas</span>
+      <a href="#book" class="btn light">Begin the Consultation</a>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 2 — HEALTHY HAIR FIRST -->
+<section class="philosophy" id="philosophy">
+  <div class="copy">
+    <span class="label reveal">The Philosophy</span>
+    <h2 class="display reveal">Healthy hair is not the finish.<br>It's where we start.</h2>
+    <p class="reveal">Every color, every hand-tied weft, every cut is built on a strand that can actually hold it. We measure a transformation by how your hair feels a year from now — not just how it photographs today.</p>
+  </div>
+  <div class="visual">
+    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=1400&q=80" alt="Close detail of healthy hair texture">
+  </div>
+</section>
+
+<div class="stitch"></div>
+
+<!-- CHAPTER 3 — TRANSFORMATION AS ART -->
+<section class="gallery" id="gallery">
+  <div class="head">
+    <span class="label reveal">Transformations</span>
+    <h2 class="display reveal">Every result is a composition, not a before-and-after.</h2>
+  </div>
+  <div class="collage">
+    <div class="piece p1 reveal"><img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=1200&q=80" alt="Luxury blonde balayage transformation"></div>
+    <div class="piece p2 reveal"><img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1000&q=80" alt="Dimensional brunette color detail"></div>
+    <div class="piece p3 reveal"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=1200&q=80" alt="Hand-tied extension application"></div>
+    <div class="piece p4 reveal"><img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=1000&q=80" alt="Healthy curly hair styling"></div>
+    <div class="piece p5 reveal"><img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8d6?auto=format&fit=crop&w=1200&q=80" alt="Editorial portrait, finished hair look"></div>
+    <p class="cap reveal">"It never looks done to a formula — it looks done to her."</p>
+  </div>
+</section>
+
+<!-- CHAPTER 4 — MEET THE ARTIST -->
+<section class="artist" id="artist">
+  <div class="portrait">
+    <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=1200&q=80" alt="Portrait of the founder at work">
+  </div>
+  <div class="story">
+    <span class="label reveal">Meet the Artist</span>
+    <blockquote class="reveal">"I didn't want to open another salon. I wanted to build the place I wished existed."</blockquote>
+    <p class="reveal">Mane Rumor began with one chair and a rule that never changed: no transformation is worth damaged hair. Latina-owned and built by hand in East Austin, the studio stayed intentionally small — one artist, one client, uninterrupted.</p>
+    <p class="reveal">Years of specializing in luxury blondes and hand-tied work taught a simple lesson: trust is built in the details nobody asks about — the strand test, the honest timeline, the products chosen for your hair and not the trend.</p>
+    <span class="signature reveal">— Founder, Mane Rumor</span>
+  </div>
+</section>
+
+<div class="stitch"></div>
+
+<!-- CHAPTER 5 — SIGNATURE EXPERIENCE -->
+<section class="journey" id="journey">
+  <div class="head">
+    <span class="label reveal">The Signature Experience</span>
+    <h2 class="display reveal">A ritual, stitched together.</h2>
+  </div>
+  <div class="journey-line">
+    <div class="spine"><div class="fill" id="spineFill"></div></div>
+
+    <div class="step">
+      <div class="side a">
+        <span class="label">01 — Consultation</span>
+        <h3 class="display">We listen first.</h3>
+        <p>An unhurried conversation about your hair's history, your life, and what you actually want to feel — before a single tool comes out.</p>
+      </div>
+      <div class="dot"></div>
+      <div class="side b"></div>
+    </div>
+
+    <div class="step">
+      <div class="side a"></div>
+      <div class="dot"></div>
+      <div class="side b">
+        <span class="label">02 — Personalized Hair Plan</span>
+        <h3 class="display">Built for your strand.</h3>
+        <p>Your color formula, timeline, and technique are mapped specifically to your hair's condition — never copied from a photo.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="side a">
+        <span class="label">03 — Luxury Application</span>
+        <h3 class="display">Craft, unrushed.</h3>
+        <p>Every foil, weft, and section is placed by hand with the time real craftsmanship requires.</p>
+      </div>
+      <div class="dot"></div>
+      <div class="side b"></div>
+    </div>
+
+    <div class="step">
+      <div class="side a"></div>
+      <div class="dot"></div>
+      <div class="side b">
+        <span class="label">04 — Transformation</span>
+        <h3 class="display">The reveal.</h3>
+        <p>The moment your hair catches up to how you already see yourself.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="side a">
+        <span class="label">05 — Aftercare</span>
+        <h3 class="display">The relationship continues.</h3>
+        <p>A personal maintenance plan and product edit, so the transformation holds long after you leave the chair.</p>
+      </div>
+      <div class="dot"></div>
+      <div class="side b"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 6 — SIGNATURE EXPERTISE -->
+<section class="expertise" id="expertise">
+  <div class="service s1">
+    <div class="img"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1400&q=80" alt="Luxury blonde balayage"></div>
+    <div class="txt">
+      <span class="num label reveal">Luxury Blondes</span>
+      <h3 class="display reveal">Sun-touched, never brittle.</h3>
+      <p class="reveal">A bespoke lift and tone built in stages that protect the strand — dimensional, low-maintenance blonde that grows out as beautifully as it comes in.</p>
+    </div>
+  </div>
+  <div class="service s2">
+    <div class="img"><img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=1400&q=80" alt="Dimensional brunette"></div>
+    <div class="txt">
+      <span class="num label reveal">Dimensional Brunettes</span>
+      <h3 class="display reveal">Depth you can see move.</h3>
+      <p class="reveal">Rich, layered brunette color designed with light in mind — glossy, multidimensional, and built to catch the light from every angle.</p>
+    </div>
+  </div>
+  <div class="service s3">
+    <div class="img"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=1400&q=80" alt="Hand-tied extensions"></div>
+    <div class="txt">
+      <span class="num label reveal">Hand-Tied Extensions</span>
+      <h3 class="display reveal">Length, without the weight.</h3>
+      <p class="reveal">Sewn by hand, row by row, for volume and length that lies flat against your scalp and moves like it grew there.</p>
+    </div>
+  </div>
+  <div class="service s4">
+    <div class="img"><img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=1400&q=80" alt="Healthy curly hair"></div>
+    <div class="txt">
+      <span class="num label reveal">Curly Hair</span>
+      <h3 class="display reveal">Cut for the curl you have.</h3>
+      <p class="reveal">Dry cuts and curl-specific color, shaped strand by strand to work with your natural pattern instead of fighting it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER 7 — SOCIAL PROOF -->
+<section class="proof" id="proof">
+  <div class="quote-block reveal">
+    <p>"I've spent a decade chasing the right blonde. This is the first time someone actually told me the truth about what my hair could handle — and it turned out beautiful anyway."</p>
+    <span class="who">Bride, Married in Austin</span>
+  </div>
+  <div class="quote-block reveal">
+    <p>"My extensions have survived two humid Austin summers and still look brand new. That's not luck. That's craftsmanship."</p>
+    <span class="who">Client, Two Years and Counting</span>
+  </div>
+  <div class="quote-block reveal">
+    <p>"It's the only appointment I've never once cancelled on myself for."</p>
+    <span class="who">Client, Monthly Regular</span>
+  </div>
+</section>
+
+<!-- CHAPTER 8 — BOOK -->
+<section class="cta" id="book">
+  <span class="label reveal">Your Transformation Begins Here</span>
+  <h2 class="reveal">Some hair stories<br>start with <em>one</em> consultation.</h2>
+  <a href="#" class="btn light">Book Your Consultation</a>
+</section>
+
+<footer>
+  <span>Mane Rumor &copy; 2026</span>
+  <span>Austin, Texas</span>
+  <span>@manerumor</span>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray('.reveal').forEach((el)=>{
+  gsap.to(el,{
+    opacity:1,y:0,duration:1.1,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 88%'}
+  });
+});
+
+gsap.utils.toArray('.stitch').forEach((el)=>{
+  ScrollTrigger.create({
+    trigger:el,start:'top 90%',
+    onEnter:()=>el.classList.add('run')
+  });
+});
+
+gsap.to('#spineFill',{
+  height:'100%',ease:'none',
+  scrollTrigger:{
+    trigger:'.journey-line',start:'top 70%',end:'bottom 60%',scrub:true
+  }
+});
+
+gsap.to('.arrival .frame img',{
+  scale:1,ease:'none',
+  scrollTrigger:{trigger:'.arrival',start:'top top',end:'bottom top',scrub:true}
+});
+
+// Collage pieces stagger
+gsap.utils.toArray('.collage .piece').forEach((el,i)=>{
+  gsap.from(el,{
+    opacity:0,y:40,duration:1,delay:i*0.05,ease:'power3.out',
+    scrollTrigger:{trigger:'.gallery',start:'top 60%'}
+  });
+});
+</script>
+
+</body>
+</html>

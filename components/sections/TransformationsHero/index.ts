@@ -1,0 +1,1 @@
+export { TransformationsHero } from "./TransformationsHero";
