@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactElement, ReactNode } from "react";
-import { useManeRumorAnimations } from "@/lib/animations/use-mane-rumor-animations";
+import { PageTransition } from "@/components/layout/PageTransition";
 
 type HomePageClientProps = {
   children: ReactNode;
@@ -10,6 +10,5 @@ type HomePageClientProps = {
 export const HomePageClient = ({
   children,
 }: HomePageClientProps): ReactElement => {
-  useManeRumorAnimations();
-  return <>{children}</>;
+  return <PageTransition>{children}</PageTransition>;
 };

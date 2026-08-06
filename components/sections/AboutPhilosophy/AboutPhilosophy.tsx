@@ -1,37 +1,45 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef, type ReactElement } from "react";
 import { useLocale } from "@/context/LocaleContext";
 import { aboutPhilosophyImage } from "@/data/about";
-
-const ease = [0.22, 1, 0.36, 1] as const;
+import {
+  easePremium,
+  motionDuration,
+  motionViewport,
+} from "@/lib/motion";
 
 export const AboutPhilosophy = (): ReactElement => {
   const { dictionary } = useLocale();
   const { philosophy } = dictionary.aboutPage;
+  const prefersReducedMotion = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+  const imageY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? ["0%", "0%"] : ["6%", "-6%"],
+  );
 
   return (
     <section
       ref={ref}
       className="about-philosophy bg-paper px-[6vw] py-28 max-[640px]:py-20 min-[641px]:py-36"
-      id="philosophy"
-      aria-labelledby="about-philosophy-label"
+      id="story"
+      aria-labelledby="about-story-label"
     >
       <motion.span
-        id="about-philosophy-label"
+        id="about-story-label"
         className="mb-16 block font-label text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-oxblood max-[640px]:mb-12"
-        initial={{ opacity: 0, y: 16 }}
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.75, ease }}
+        viewport={motionViewport}
+        transition={{ duration: motionDuration.body, ease: easePremium }}
       >
         {philosophy.label}
       </motion.span>
@@ -46,13 +54,13 @@ export const AboutPhilosophy = (): ReactElement => {
                   ? "text-[clamp(2.4rem,6.5vw,5.2rem)] italic leading-[1.05] min-[641px]:ml-[8%]"
                   : "text-[clamp(2.2rem,5.8vw,4.6rem)] leading-[1.08]"
               } ${index === 2 ? "min-[641px]:max-w-[14ch]" : "max-w-[16ch]"}`}
-              initial={{ opacity: 0, y: 36 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-8%" }}
+              viewport={motionViewport}
               transition={{
-                duration: 0.9,
-                delay: index * 0.08,
-                ease,
+                duration: motionDuration.heading,
+                delay: index * 0.1,
+                ease: easePremium,
               }}
             >
               {statement}
@@ -60,28 +68,36 @@ export const AboutPhilosophy = (): ReactElement => {
           ))}
           <motion.p
             className="max-w-[36ch] pt-4 text-[1.05rem] leading-[1.75] text-body"
-            initial={{ opacity: 0, y: 20 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease }}
+            viewport={motionViewport}
+            transition={{
+              duration: motionDuration.body,
+              delay: 0.2,
+              ease: easePremium,
+            }}
           >
             {philosophy.closing}
           </motion.p>
         </div>
 
         <motion.div
-          className="relative h-[58vh] overflow-hidden max-[640px]:h-[48vh] min-[641px]:h-[78vh]"
-          initial={{ opacity: 0, clipPath: "inset(8% 8% 8% 8%)" }}
-          whileInView={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
-          viewport={{ once: true, margin: "-6%" }}
-          transition={{ duration: 1.1, ease }}
+          className="group relative h-[58vh] overflow-hidden max-[640px]:h-[48vh] min-[641px]:h-[78vh]"
+          initial={
+            prefersReducedMotion
+              ? false
+              : { opacity: 0, y: 18, scale: 1.03 }
+          }
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={motionViewport}
+          transition={{ duration: motionDuration.image, ease: easePremium }}
         >
           <motion.div className="absolute inset-0" style={{ y: imageY }}>
             <Image
               src={aboutPhilosophyImage.src}
               alt={aboutPhilosophyImage.alt}
               fill
-              className="scale-110 object-cover"
+              className="scale-110 object-cover transition-transform duration-700 ease-out group-hover:scale-[1.12]"
               sizes="(max-width: 640px) 100vw, 42vw"
             />
           </motion.div>

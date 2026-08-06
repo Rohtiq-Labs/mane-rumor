@@ -23,7 +23,7 @@ export const ServiceRow = ({
     price === "Free" ? price : `${startingAtLabel} ${price}`;
 
   return (
-    <li className="service-row group relative border-t border-hairline last:border-b">
+    <div className="service-row group relative border-t border-hairline last:border-b">
       <a
         href={bookHref}
         className="service-row-link block py-7 outline-none focus-visible:bg-mist/50 max-[640px]:py-6 min-[641px]:py-9"
@@ -81,6 +81,6 @@ export const ServiceRow = ({
         aria-hidden="true"
         className="pointer-events-none absolute bottom-0 left-0 h-px w-0 bg-oxblood transition-[width] duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:w-full"
       />
-    </li>
+    </div>
   );
 };

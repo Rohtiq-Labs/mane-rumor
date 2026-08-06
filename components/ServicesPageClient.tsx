@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactElement, ReactNode } from "react";
-import { useServicesPageAnimations } from "@/lib/animations/use-services-page-animations";
+import { PageTransition } from "@/components/layout/PageTransition";
 
 type ServicesPageClientProps = {
   children: ReactNode;
@@ -10,6 +10,5 @@ type ServicesPageClientProps = {
 export const ServicesPageClient = ({
   children,
 }: ServicesPageClientProps): ReactElement => {
-  useServicesPageAnimations();
-  return <>{children}</>;
+  return <PageTransition>{children}</PageTransition>;
 };

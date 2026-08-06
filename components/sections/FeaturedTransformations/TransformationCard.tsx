@@ -5,6 +5,11 @@ import { motion } from "framer-motion";
 import type { ReactElement } from "react";
 import { useLocale } from "@/context/LocaleContext";
 import type { TransformationMeta } from "@/data/transformations";
+import {
+  easePremium,
+  motionDuration,
+  motionViewport,
+} from "@/lib/motion";
 
 type TransformationCardProps = {
   item: TransformationMeta;
@@ -39,13 +44,14 @@ export const TransformationCard = ({
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 36 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20, scale: 0.98 }}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 16 }}
+      viewport={motionViewport}
       transition={{
-        duration: 0.55,
-        delay: index * 0.04,
-        ease: [0.22, 1, 0.36, 1],
+        duration: motionDuration.section,
+        delay: index * 0.08,
+        ease: easePremium,
       }}
       className={`group relative max-[640px]:mb-4 ${shellClass[item.layout]}`}
     >
@@ -68,7 +74,7 @@ export const TransformationCard = ({
             src={item.afterSrc}
             alt={item.alt}
             fill
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
             sizes={
               item.layout === "hero"
                 ? "(max-width: 640px) 100vw, 66vw"

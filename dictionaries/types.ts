@@ -1,5 +1,13 @@
 export type Locale = "en" | "ur";
 
+export type InnerPageHeroCopy = {
+  label: string;
+  titleLine1: string;
+  titleLine2?: string;
+  support: string;
+  cta?: string;
+};
+
 export type ServiceListingCopy = {
   name: string;
   description: string;
@@ -24,6 +32,8 @@ export type Dictionary = {
     services: string;
     contact: string;
     book: string;
+    openMenu: string;
+    closeMenu: string;
   };
   arrival: {
     headlineBefore: string;
@@ -42,6 +52,9 @@ export type Dictionary = {
     label: string;
     title: string;
     caption: string;
+    previous: string;
+    next: string;
+    cta: string;
   };
   artist: {
     label: string;
@@ -49,24 +62,22 @@ export type Dictionary = {
     body1: string;
     body2: string;
     signature: string;
-  };
-  journey: {
-    label: string;
-    title: string;
-    steps: {
-      label: string;
-      title: string;
-      body: string;
-    }[];
+    cta: string;
   };
   expertise: {
+    label: string;
+    title: string;
+    support: string;
+    cta: string;
     services: {
-      label: string;
-      title: string;
-      body: string;
+      name: string;
+      line: string;
     }[];
   };
   proof: {
+    label: string;
+    title: string;
+    support: string;
     quotes: {
       text: string;
       who: string;
@@ -79,15 +90,10 @@ export type Dictionary = {
     titleEm: string;
     titleAfter: string;
     cta: string;
+    pageCta: string;
   };
   servicesPage: {
-    hero: {
-      headlineBefore: string;
-      headlineEm: string;
-      headlineAfter: string;
-      support: string;
-      cta: string;
-    };
+    hero: InnerPageHeroCopy;
     catalogue: {
       label: string;
       startingAt: string;
@@ -105,11 +111,7 @@ export type Dictionary = {
     categories: Record<string, ServiceCategoryCopy>;
   };
   transformationsPage: {
-    hero: {
-      headlineLine1: string;
-      headlineLine2: string;
-      support: string;
-    };
+    hero: InnerPageHeroCopy;
     filters: {
       all: string;
       blondes: string;
@@ -152,12 +154,7 @@ export type Dictionary = {
     >;
   };
   contactPage: {
-    hero: {
-      headlineBefore: string;
-      headlineEm: string;
-      support: string;
-      cta: string;
-    };
+    hero: InnerPageHeroCopy;
     visit: {
       label: string;
       title: string;
@@ -183,30 +180,10 @@ export type Dictionary = {
       title: string;
       body: string;
       cta: string;
-      formTitle: string;
-      formSupport: string;
-      fields: {
-        name: string;
-        email: string;
-        phone: string;
-        message: string;
-      };
-      submit: string;
-      success: string;
-    };
-    help: {
-      label: string;
-      title: string;
-      body: string;
-      cta: string;
     };
   };
   aboutPage: {
-    hero: {
-      headlineLine1: string;
-      headlineLine2: string;
-      support: string;
-    };
+    hero: InnerPageHeroCopy;
     philosophy: {
       label: string;
       statements: string[];

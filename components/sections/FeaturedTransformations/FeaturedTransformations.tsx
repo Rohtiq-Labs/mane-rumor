@@ -3,6 +3,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useMemo, useState, type ReactElement } from "react";
 import { useLocale } from "@/context/LocaleContext";
+import { Reveal } from "@/lib/motion";
 import {
   transformations,
   type TransformationFilter,
@@ -31,12 +32,14 @@ export const FeaturedTransformations = (): ReactElement => {
       aria-labelledby="featured-label"
     >
       <div className="px-[6vw] pt-16 pb-4 max-[640px]:pt-12 min-[641px]:pt-20 min-[641px]:pb-6">
-        <span
-          id="featured-label"
-          className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-oxblood"
-        >
-          {featured.label}
-        </span>
+        <Reveal tone="label">
+          <span
+            id="featured-label"
+            className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-oxblood"
+          >
+            {featured.label}
+          </span>
+        </Reveal>
       </div>
 
       <div className="sticky top-16 z-30">

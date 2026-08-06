@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 import type { ReactElement } from "react";
 import { useLocale } from "@/context/LocaleContext";
 import { contactDetails } from "@/data/contact";
-
-const ease = [0.22, 1, 0.36, 1] as const;
+import {
+  easePremium,
+  motionDuration,
+  motionViewport,
+} from "@/lib/motion";
 
 export const ContactVisit = (): ReactElement => {
   const { dictionary } = useLocale();
@@ -23,8 +26,8 @@ export const ContactVisit = (): ReactElement => {
             className="mb-5 block font-label text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-oxblood"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease }}
+            viewport={motionViewport}
+            transition={{ duration: motionDuration.body, ease: easePremium }}
           >
             {visit.label}
           </motion.span>
@@ -33,18 +36,22 @@ export const ContactVisit = (): ReactElement => {
             className="mb-[clamp(2.5rem,6vw,3.75rem)] max-w-[12ch] font-display text-[clamp(2.2rem,5vw,3.8rem)] font-normal leading-[1.05] tracking-[-0.01em] text-ink"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, ease }}
+            viewport={motionViewport}
+            transition={{ duration: motionDuration.heading, ease: easePremium }}
           >
             {visit.title}
           </motion.h2>
 
           <div className="flex flex-col gap-10">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.05, ease }}
+              viewport={motionViewport}
+              transition={{
+                duration: motionDuration.body,
+                delay: 0.08,
+                ease: easePremium,
+              }}
             >
               <p className="mb-3 font-label text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-oxblood">
                 {visit.addressLabel}
@@ -64,10 +71,14 @@ export const ContactVisit = (): ReactElement => {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.1, ease }}
+              viewport={motionViewport}
+              transition={{
+                duration: motionDuration.body,
+                delay: 0.12,
+                ease: easePremium,
+              }}
             >
               <p className="mb-3 font-label text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-oxblood">
                 {visit.hoursLabel}
@@ -90,10 +101,14 @@ export const ContactVisit = (): ReactElement => {
 
             <motion.div
               className="grid grid-cols-1 gap-10 min-[480px]:grid-cols-2"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.15, ease }}
+              viewport={motionViewport}
+              transition={{
+                duration: motionDuration.body,
+                delay: 0.16,
+                ease: easePremium,
+              }}
             >
               <div>
                 <p className="mb-3 font-label text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-oxblood">
@@ -125,8 +140,8 @@ export const ContactVisit = (): ReactElement => {
           className="relative min-h-[320px] w-full overflow-hidden border border-hairline min-[641px]:min-h-[520px] min-[641px]:sticky min-[641px]:top-28"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease }}
+          viewport={motionViewport}
+          transition={{ duration: motionDuration.image, ease: easePremium }}
         >
           <iframe
             title={visit.mapLabel}

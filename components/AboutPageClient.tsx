@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactElement, ReactNode } from "react";
+import { PageTransition } from "@/components/layout/PageTransition";
 
 type AboutPageClientProps = {
   children: ReactNode;
@@ -9,5 +10,5 @@ type AboutPageClientProps = {
 export const AboutPageClient = ({
   children,
 }: AboutPageClientProps): ReactElement => {
-  return <>{children}</>;
+  return <PageTransition>{children}</PageTransition>;
 };

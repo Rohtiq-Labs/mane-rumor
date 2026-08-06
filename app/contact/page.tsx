@@ -4,7 +4,6 @@ import { ContactPageClient } from "@/components/ContactPageClient";
 import { Footer } from "@/components/layout/Footer";
 import { Nav } from "@/components/layout/Nav";
 import { ContactBooking } from "@/components/sections/ContactBooking";
-import { ContactHelp } from "@/components/sections/ContactHelp";
 import { ContactHero } from "@/components/sections/ContactHero";
 import { ContactVisit } from "@/components/sections/ContactVisit";
 
@@ -22,7 +21,6 @@ const ContactPage = (): ReactElement => {
         <ContactHero />
         <ContactVisit />
         <ContactBooking />
-        <ContactHelp />
       </main>
       <Footer />
     </ContactPageClient>

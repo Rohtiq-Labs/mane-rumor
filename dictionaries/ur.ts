@@ -16,6 +16,8 @@ export const ur: Dictionary = {
     services: "خدمات",
     contact: "رابطہ",
     book: "بک کریں",
+    openMenu: "مینو کھولیں",
+    closeMenu: "مینو بند کریں",
   },
   arrival: {
     headlineBefore: "بال، ایک",
@@ -34,6 +36,9 @@ export const ur: Dictionary = {
     label: "تبدیلیاں",
     title: en.gallery.title,
     caption: en.gallery.caption,
+    previous: "پچھلی تبدیلی",
+    next: "اگلی تبدیلی",
+    cta: "تمام تبدیلیاں دیکھیں",
   },
   artist: {
     label: "آرٹسٹ سے ملیں",
@@ -41,16 +46,20 @@ export const ur: Dictionary = {
     body1: en.artist.body1,
     body2: en.artist.body2,
     signature: "— بانی، مین رمر",
-  },
-  journey: {
-    label: "دستخطی تجربہ",
-    title: "ایک رسم، جوڑ کر۔",
-    steps: en.journey.steps,
+    cta: "ہمارے بارے میں",
   },
   expertise: {
+    label: "دستخطی خدمات",
+    title: "جو ہم کرتے ہیں، ارادے کے ساتھ۔",
+    support:
+      "کاریگری کے چار ستون — آپ کے بالوں کے لیے، کبھی فارمولے سے نہیں۔",
+    cta: "تمام خدمات دیکھیں",
     services: en.expertise.services,
   },
   proof: {
+    label: "کلائنٹ کی آوازیں",
+    title: "افواہ، تصدیق شدہ۔",
+    support: "ایماندار رنگ۔ پائیدار ایکسٹینشنز۔ اپائنٹمنٹس جو رکھنے کے قابل ہیں۔",
     quotes: en.proof.quotes,
   },
   book: {
@@ -60,6 +69,7 @@ export const ur: Dictionary = {
     titleEm: "ایک",
     titleAfter: "مشاورت سے۔",
     cta: "اپنی مشاورت بک کریں",
+    pageCta: "رابطہ کریں",
   },
   servicesPage: en.servicesPage,
   transformationsPage: en.transformationsPage,

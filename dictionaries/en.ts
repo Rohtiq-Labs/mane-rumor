@@ -13,6 +13,8 @@ export const en: Dictionary = {
     services: "Services",
     contact: "Contact",
     book: "Book",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
   },
   arrival: {
     headlineBefore: "Hair, held",
@@ -31,6 +33,9 @@ export const en: Dictionary = {
     label: "Transformations",
     title: "Every result is a composition, not a before-and-after.",
     caption: '"It never looks done to a formula — it looks done to her."',
+    previous: "Previous transformation",
+    next: "Next transformation",
+    cta: "View all transformations",
   },
   artist: {
     label: "Meet the Artist",
@@ -41,63 +46,37 @@ export const en: Dictionary = {
     body2:
       "Years of specializing in luxury blondes and hand-tied work taught a simple lesson: trust is built in the details nobody asks about — the strand test, the honest timeline, the products chosen for your hair and not the trend.",
     signature: "— Founder, Mane Rumor",
-  },
-  journey: {
-    label: "The Signature Experience",
-    title: "A ritual, stitched together.",
-    steps: [
-      {
-        label: "01 — Consultation",
-        title: "We listen first.",
-        body: "An unhurried conversation about your hair's history, your life, and what you actually want to feel — before a single tool comes out.",
-      },
-      {
-        label: "02 — Personalized Hair Plan",
-        title: "Built for your strand.",
-        body: "Your color formula, timeline, and technique are mapped specifically to your hair's condition — never copied from a photo.",
-      },
-      {
-        label: "03 — Luxury Application",
-        title: "Craft, unrushed.",
-        body: "Every foil, weft, and section is placed by hand with the time real craftsmanship requires.",
-      },
-      {
-        label: "04 — Transformation",
-        title: "The reveal.",
-        body: "The moment your hair catches up to how you already see yourself.",
-      },
-      {
-        label: "05 — Aftercare",
-        title: "The relationship continues.",
-        body: "A personal maintenance plan and product edit, so the transformation holds long after you leave the chair.",
-      },
-    ],
+    cta: "About us",
   },
   expertise: {
+    label: "Signature Services",
+    title: "What we do, with intention.",
+    support:
+      "Four pillars of craft — chosen for your strand, never from a formula.",
+    cta: "View all services",
     services: [
       {
-        label: "Luxury Blondes",
-        title: "Sun-touched, never brittle.",
-        body: "A bespoke lift and tone built in stages that protect the strand — dimensional, low-maintenance blonde that grows out as beautifully as it comes in.",
+        name: "Luxury Blondes",
+        line: "Lifted in stages. Never brittle.",
       },
       {
-        label: "Dimensional Brunettes",
-        title: "Depth you can see move.",
-        body: "Rich, layered brunette color designed with light in mind — glossy, multidimensional, and built to catch the light from every angle.",
+        name: "Dimensional Brunettes",
+        line: "Depth that moves in light.",
       },
       {
-        label: "Hand-Tied Extensions",
-        title: "Length, without the weight.",
-        body: "Sewn by hand, row by row, for volume and length that lies flat against your scalp and moves like it grew there.",
+        name: "Hand-Tied Extensions",
+        line: "Length without the weight.",
       },
       {
-        label: "Curly Hair",
-        title: "Cut for the curl you have.",
-        body: "Dry cuts and curl-specific color, shaped strand by strand to work with your natural pattern instead of fighting it.",
+        name: "Curly Hair",
+        line: "Cut for the curl you have.",
       },
     ],
   },
   proof: {
+    label: "Client Voices",
+    title: "The rumor, confirmed.",
+    support: "Honest color. Extensions that last. Appointments worth keeping.",
     quotes: [
       {
         text: '"I\'ve spent a decade chasing the right blonde. This is the first time someone actually told me the truth about what my hair could handle — and it turned out beautiful anyway."',
@@ -120,14 +99,14 @@ export const en: Dictionary = {
     titleEm: "one",
     titleAfter: "consultation.",
     cta: "Book Your Consultation",
+    pageCta: "Contact us",
   },
   servicesPage: {
     hero: {
-      headlineBefore: "Designed around",
-      headlineEm: "your",
-      headlineAfter: "hair goals.",
-      support: "Luxury color, extensions, and ritual — chosen with you, never from a menu.",
-      cta: "Book Consultation",
+      label: "",
+      titleLine1: "Our Services",
+      support:
+        "From signature blondes and dimensional brunettes to hand-tied extensions and curly cuts — every appointment, tailored to you.",
     },
     catalogue: {
       label: "The Menu",
@@ -396,10 +375,10 @@ export const en: Dictionary = {
   },
   transformationsPage: {
     hero: {
-      headlineLine1: "Real Transformations.",
-      headlineLine2: "Real Confidence.",
+      label: "",
+      titleLine1: "Transformations",
       support:
-        "Every color, extension, and cut is customized around your goals — while protecting the health of your hair.",
+        "Real clients. Real transformations. Thoughtfully crafted results that prioritize healthy hair.",
     },
     filters: {
       all: "All",
@@ -484,10 +463,11 @@ export const en: Dictionary = {
   },
   contactPage: {
     hero: {
-      headlineBefore: "Let's Create Your",
-      headlineEm: "Best Hair Yet.",
+      label: "Visit Mane Rumor",
+      titleLine1: "Let's create",
+      titleLine2: "your next look.",
       support:
-        "Book a consultation or reach out — we'll begin with your goals, your strand, and the transformation you want to feel.",
+        "Whether you're booking your first consultation or returning for maintenance, we're here to help.",
       cta: "Book Appointment",
     },
     visit: {
@@ -515,33 +495,17 @@ export const en: Dictionary = {
       title: "Book Your Appointment",
       body: "Consultations are personalized. Every appointment begins with understanding your hair goals — never a one-size formula.",
       cta: "Book Appointment",
-      formTitle: "General Inquiries",
-      formSupport: "Questions about services, timing, or your hair history — leave a note and we'll respond thoughtfully.",
-      fields: {
-        name: "Name",
-        email: "Email",
-        phone: "Phone",
-        message: "Message",
-      },
-      submit: "Send Message",
-      success: "Thank you. We'll be in touch shortly.",
-    },
-    help: {
-      label: "Need Help Choosing?",
-      title: "Not sure which service is right for you?",
-      body: "Book a complimentary consultation and we'll recommend the perfect service based on your hair goals.",
-      cta: "Book Consultation",
     },
   },
   aboutPage: {
     hero: {
-      headlineLine1: "More Than",
-      headlineLine2: "Beautiful Hair.",
+      label: "",
+      titleLine1: "About Us",
       support:
-        "Mane Rumor is a Latina-owned atelier in Austin — built on healthy hair, handcrafted color, and the quiet confidence of being truly seen.",
+        "A glimpse into the people, story, and craftsmanship behind Mane Rumor.",
     },
     philosophy: {
-      label: "Our Philosophy",
+      label: "Our Story",
       statements: [
         "Every appointment begins with listening.",
         "Healthy hair always comes first.",

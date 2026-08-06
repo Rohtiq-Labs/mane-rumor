@@ -1,184 +1,175 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import type { ReactElement } from "react";
+import { useReducedMotion } from "framer-motion";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  type ReactElement,
+} from "react";
 import { useLocale } from "@/context/LocaleContext";
-import { aboutTeam, type AboutTeamMember } from "@/data/about";
+import { aboutTeam } from "@/data/about";
+import { Reveal, RevealGroup, RevealItem } from "@/lib/motion";
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
-const colStartClass: Record<NonNullable<AboutTeamMember["colStart"]>, string> =
-  {
-    1: "min-[641px]:col-start-1",
-    2: "min-[641px]:col-start-2",
-    3: "min-[641px]:col-start-3",
-    4: "min-[641px]:col-start-4",
-    5: "min-[641px]:col-start-5",
-    6: "min-[641px]:col-start-6",
-    7: "min-[641px]:col-start-7",
-    8: "min-[641px]:col-start-8",
-  };
-
-const layoutClass = (layout: AboutTeamMember["layout"]): string => {
-  switch (layout) {
-    case "feature":
-      return "min-[641px]:col-span-12 min-[641px]:grid min-[641px]:grid-cols-12 min-[641px]:gap-10";
-    case "wide":
-      return "min-[641px]:col-span-7";
-    case "tall":
-      return "min-[641px]:col-span-5";
-    case "portrait":
-    default:
-      return "min-[641px]:col-span-5";
-  }
-};
-
-const imageHeightClass = (layout: AboutTeamMember["layout"]): string => {
-  switch (layout) {
-    case "feature":
-      return "h-[68vh] max-[640px]:h-[56vh] min-[641px]:h-[78vh]";
-    case "wide":
-      return "h-[48vh] max-[640px]:h-[46vh] min-[641px]:h-[52vh]";
-    case "tall":
-      return "h-[58vh] max-[640px]:h-[50vh] min-[641px]:h-[68vh]";
-    case "portrait":
-    default:
-      return "h-[52vh] max-[640px]:h-[48vh] min-[641px]:h-[58vh]";
-  }
-};
+const AUTO_SCROLL_PX = 0.45;
+const RESUME_AFTER_MS = 2400;
 
 export const AboutTeam = (): ReactElement => {
   const { dictionary } = useLocale();
   const { team } = dictionary.aboutPage;
+  const prefersReducedMotion = useReducedMotion();
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const isPausedRef = useRef(false);
+  const isTouchingRef = useRef(false);
+  const resumeTimerRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
+
+  const clearResumeTimer = useCallback((): void => {
+    if (resumeTimerRef.current !== null) {
+      window.clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
+  }, []);
+
+  const pauseMotion = useCallback((): void => {
+    isPausedRef.current = true;
+    clearResumeTimer();
+  }, [clearResumeTimer]);
+
+  const resumeMotionSoon = useCallback((): void => {
+    clearResumeTimer();
+    resumeTimerRef.current = window.setTimeout(() => {
+      isPausedRef.current = false;
+      resumeTimerRef.current = null;
+    }, RESUME_AFTER_MS);
+  }, [clearResumeTimer]);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    const media = window.matchMedia("(max-width: 640px)");
+
+    const tick = (): void => {
+      const scroller = scrollerRef.current;
+      if (
+        scroller &&
+        media.matches &&
+        !isPausedRef.current &&
+        !isTouchingRef.current
+      ) {
+        const halfWidth = scroller.scrollWidth / 2;
+        scroller.scrollLeft += AUTO_SCROLL_PX;
+        if (scroller.scrollLeft >= halfWidth) {
+          scroller.scrollLeft -= halfWidth;
+        }
+      }
+      rafRef.current = window.requestAnimationFrame(tick);
+    };
+
+    rafRef.current = window.requestAnimationFrame(tick);
+
+    return () => {
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+      }
+      clearResumeTimer();
+    };
+  }, [prefersReducedMotion, clearResumeTimer]);
+
+  const loopMembers = [...aboutTeam, ...aboutTeam];
 
   return (
     <section
-      className="about-team bg-canvas px-[6vw] py-28 max-[640px]:py-20 min-[641px]:py-36"
+      className="about-team overflow-hidden bg-canvas py-20 min-[641px]:py-14"
       id="team"
       aria-labelledby="about-team-title"
     >
-      <div className="mb-16 max-[640px]:mb-12 min-[641px]:mb-24">
-        <motion.span
-          className="mb-5 block font-label text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-oxblood"
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease }}
-        >
-          {team.label}
-        </motion.span>
-        <motion.h2
+      <Reveal tone="heading" className="mb-12 px-[6vw] min-[641px]:mb-8">
+        <h2
           id="about-team-title"
-          className="max-w-[12ch] font-display text-[clamp(2.6rem,6vw,5rem)] font-normal leading-[1.02] tracking-[-0.02em] text-ink"
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.85, ease }}
+          className="font-display text-[clamp(2.4rem,5vw,3.2rem)] font-normal leading-[1.05] tracking-[-0.02em] text-ink"
         >
           {team.title}
-        </motion.h2>
-      </div>
+        </h2>
+      </Reveal>
 
-      <ul className="grid list-none grid-cols-1 gap-14 max-[640px]:gap-16 min-[641px]:grid-cols-12 min-[641px]:gap-x-8 min-[641px]:gap-y-20">
-        {aboutTeam.map((member, index) => {
+      {/* Mobile — ≤640px: horizontal sliding marquee */}
+      <div
+        ref={scrollerRef}
+        className="flex gap-6 overflow-x-auto overscroll-x-contain px-[6vw] pb-2 scrollbar-none touch-pan-x min-[641px]:hidden"
+        aria-label={team.title}
+        onTouchStart={() => {
+          isTouchingRef.current = true;
+          pauseMotion();
+        }}
+        onTouchEnd={() => {
+          isTouchingRef.current = false;
+          resumeMotionSoon();
+        }}
+        onTouchCancel={() => {
+          isTouchingRef.current = false;
+          resumeMotionSoon();
+        }}
+      >
+        {loopMembers.map((member, index) => {
           const copy = team.members[member.id];
-          const isFeature = member.layout === "feature";
-          const startClass = member.colStart
-            ? colStartClass[member.colStart]
-            : "";
+          const isClone = index >= aboutTeam.length;
 
           return (
-            <motion.li
-              key={member.id}
-              className={`group ${layoutClass(member.layout)} ${startClass}`}
-              initial={{ opacity: 0, y: 36 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-6%" }}
-              transition={{
-                duration: 0.9,
-                delay: Math.min(index * 0.05, 0.2),
-                ease,
-              }}
+            <figure
+              key={`${member.id}-${index}`}
+              className="w-[58vw] shrink-0"
+              aria-hidden={isClone}
             >
-              {isFeature ? (
-                <>
-                  <div
-                    className={`relative col-span-7 overflow-hidden ${imageHeightClass(member.layout)}`}
-                  >
-                    <Image
-                      src={member.image}
-                      alt={copy.name}
-                      fill
-                      className="object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                      sizes="(max-width: 640px) 100vw, 58vw"
-                    />
-                  </div>
-                  <div className="col-span-5 flex flex-col justify-end max-[640px]:mt-6 min-[641px]:pb-6">
-                    <h3 className="font-display text-[clamp(2rem,3.5vw,3rem)] font-normal tracking-[-0.01em] text-ink">
-                      {copy.name}
-                    </h3>
-                    <p className="mt-3 max-w-[28ch] font-label text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-body">
-                      {copy.role}
-                    </p>
-                    <Link
-                      href="/contact#book"
-                      className="mt-8 inline-block w-fit border-b border-oxblood pb-1 font-label text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-oxblood transition-opacity duration-400 hover:opacity-70"
-                    >
-                      {team.bookCta}
-                    </Link>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div
-                    className={`relative overflow-hidden ${imageHeightClass(member.layout)}`}
-                  >
-                    <Image
-                      src={member.image}
-                      alt={copy.name}
-                      fill
-                      className="object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.045]"
-                      sizes="(max-width: 640px) 100vw, 48vw"
-                    />
-                  </div>
-                  <div
-                    className={`mt-5 max-[640px]:mt-4 ${
-                      member.colStart && member.colStart >= 7
-                        ? "min-[641px]:text-right min-[641px]:ml-auto"
-                        : ""
-                    }`}
-                  >
-                    <h3 className="font-display text-[clamp(1.55rem,2.4vw,2.1rem)] font-normal tracking-[-0.01em] text-ink">
-                      {copy.name}
-                    </h3>
-                    <p
-                      className={`mt-2 max-w-[26ch] font-label text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-body ${
-                        member.colStart && member.colStart >= 7
-                          ? "min-[641px]:ml-auto"
-                          : ""
-                      }`}
-                    >
-                      {copy.role}
-                    </p>
-                    <Link
-                      href="/contact#book"
-                      className={`mt-5 inline-block w-fit border-b border-transparent pb-1 font-label text-[0.64rem] font-semibold uppercase tracking-[0.14em] text-oxblood transition-[border-color,opacity] duration-400 hover:border-oxblood ${
-                        member.colStart && member.colStart >= 7
-                          ? "min-[641px]:ml-auto"
-                          : ""
-                      }`}
-                    >
-                      {team.bookCta}
-                    </Link>
-                  </div>
-                </>
-              )}
-            </motion.li>
+              <div className="relative aspect-[3/4] w-full overflow-hidden">
+                <Image
+                  src={member.image}
+                  alt={isClone ? "" : copy.name}
+                  fill
+                  className="object-cover object-top saturate-[0.92] contrast-[1.02]"
+                  sizes="58vw"
+                  draggable={false}
+                />
+              </div>
+              <figcaption className="mt-4 font-display text-[clamp(1.15rem,2.5vw,1.45rem)] font-normal tracking-[-0.01em] text-ink">
+                {copy.name}
+              </figcaption>
+            </figure>
           );
         })}
-      </ul>
+      </div>
+
+      {/* Desktop — ≥641px: fixed row of all 6 */}
+      <RevealGroup
+        className="hidden list-none grid-cols-6 gap-5 px-[6vw] min-[641px]:grid"
+        stagger={0.08}
+      >
+        {aboutTeam.map((member) => {
+          const copy = team.members[member.id];
+
+          return (
+            <RevealItem key={member.id}>
+              <figure>
+                <div className="group relative aspect-[3/4] w-full overflow-hidden">
+                  <Image
+                    src={member.image}
+                    alt={copy.name}
+                    fill
+                    className="object-cover object-top saturate-[0.92] contrast-[1.02] transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    sizes="16vw"
+                  />
+                </div>
+                <figcaption className="mt-2.5 font-display text-[1.05rem] font-normal tracking-[-0.01em] text-ink">
+                  {copy.name}
+                </figcaption>
+              </figure>
+            </RevealItem>
+          );
+        })}
+      </RevealGroup>
     </section>
   );
 };

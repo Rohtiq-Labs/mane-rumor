@@ -8,6 +8,7 @@ import {
 } from "react";
 import { useLocale } from "@/context/LocaleContext";
 import { serviceCatalogue } from "@/data/service-catalog";
+import { Reveal, RevealGroup, RevealItem } from "@/lib/motion";
 import { CategoryNav } from "./CategoryNav";
 import { ServiceRow } from "./ServiceRow";
 
@@ -79,12 +80,14 @@ export const ServicesCatalogue = (): ReactElement => {
       aria-labelledby="catalogue-label"
     >
       <div className="px-[6vw] pt-20 pb-10 max-[640px]:pt-16 max-[640px]:pb-6 min-[641px]:pt-28 min-[641px]:pb-16">
-        <span
-          id="catalogue-label"
-          className="reveal font-label text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-oxblood"
-        >
-          {catalogue.label}
-        </span>
+        <Reveal tone="label">
+          <span
+            id="catalogue-label"
+            className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-oxblood"
+          >
+            {catalogue.label}
+          </span>
+        </Reveal>
       </div>
 
       <CategoryNav
@@ -94,13 +97,9 @@ export const ServicesCatalogue = (): ReactElement => {
         onSelect={scrollToCategory}
       />
 
-      {/* Desktop side rail — category jump links */}
       <div className="relative mx-auto max-w-[1200px] min-[641px]:grid min-[641px]:grid-cols-[180px_minmax(0,1fr)] min-[641px]:gap-12 min-[641px]:px-[6vw] min-[641px]:pb-28">
         <aside className="hidden min-[641px]:block">
-          <nav
-            className="sticky top-28"
-            aria-label={catalogue.navAria}
-          >
+          <nav className="sticky top-28" aria-label={catalogue.navAria}>
             <ul className="list-none space-y-4 border-l border-hairline pl-5">
               {serviceCatalogue.map((category) => {
                 const copy = categories[category.id];
@@ -147,16 +146,20 @@ export const ServicesCatalogue = (): ReactElement => {
                     : "max-[640px]:bg-paper min-[641px]:px-2"
                 }`}
               >
-                <header className="mb-8 max-w-[36ch] max-[640px]:mb-6 min-[641px]:mb-12">
-                  <h2 className="reveal font-display text-[clamp(1.85rem,3.4vw,2.75rem)] font-normal leading-[1.08] tracking-[-0.01em] text-ink">
-                    {copy.title}
-                  </h2>
-                  <p className="reveal mt-4 text-[0.98rem] leading-[1.7] text-body">
-                    {copy.description}
-                  </p>
-                </header>
+                <RevealGroup className="mb-8 max-w-[36ch] max-[640px]:mb-6 min-[641px]:mb-12">
+                  <RevealItem tone="heading">
+                    <h2 className="font-display text-[clamp(1.85rem,3.4vw,2.75rem)] font-normal leading-[1.08] tracking-[-0.01em] text-ink">
+                      {copy.title}
+                    </h2>
+                  </RevealItem>
+                  <RevealItem tone="body">
+                    <p className="mt-4 text-[0.98rem] leading-[1.7] text-body">
+                      {copy.description}
+                    </p>
+                  </RevealItem>
+                </RevealGroup>
 
-                <ul className="list-none">
+                <RevealGroup className="list-none" stagger={0.08}>
                   {category.services.map((service) => {
                     const serviceCopy = copy.services[service.id];
                     if (!serviceCopy) {
@@ -164,18 +167,19 @@ export const ServicesCatalogue = (): ReactElement => {
                     }
 
                     return (
-                      <ServiceRow
-                        key={service.id}
-                        name={serviceCopy.name}
-                        description={serviceCopy.description}
-                        price={service.price}
-                        startingAtLabel={catalogue.startingAt}
-                        bookLabel={catalogue.book}
-                        bookHref="#book"
-                      />
+                      <RevealItem key={service.id}>
+                        <ServiceRow
+                          name={serviceCopy.name}
+                          description={serviceCopy.description}
+                          price={service.price}
+                          startingAtLabel={catalogue.startingAt}
+                          bookLabel={catalogue.book}
+                          bookHref="#book"
+                        />
+                      </RevealItem>
                     );
                   })}
-                </ul>
+                </RevealGroup>
               </article>
             );
           })}

@@ -15,8 +15,8 @@ export const contactDetails = {
       "https://maps.google.com/maps?q=122+Sheraton+Ave,+Austin,+TX+78745&z=15&output=embed",
   },
   phone: {
-    display: "(512) 555-0188",
-    href: "tel:+15125550188",
+    display: "+1 (512) 718-8648",
+    href: "tel:+15127188648",
   },
   email: {
     display: "hello@manerumor.com",

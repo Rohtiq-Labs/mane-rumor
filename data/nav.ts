@@ -2,7 +2,6 @@ export type NavLink = {
   href: string;
   homeHref: string;
   labelKey:
-    | "experience"
     | "about"
     | "transformations"
     | "services"
@@ -11,7 +10,6 @@ export type NavLink = {
 };
 
 export const navLinks: NavLink[] = [
-  { href: "/#philosophy", homeHref: "#philosophy", labelKey: "experience" },
   { href: "/about", homeHref: "/about", labelKey: "about" },
   {
     href: "/transformations",
