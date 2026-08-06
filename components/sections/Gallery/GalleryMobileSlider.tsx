@@ -133,7 +133,7 @@ export const GalleryMobileSlider = ({
     <div className="min-[641px]:hidden">
       <div
         ref={scrollerRef}
-        className="relative -mx-[6vw] flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-[6vw] py-2 scrollbar-none touch-pan-x"
+        className="relative -mx-[6vw] flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-[6vw] py-2 scrollbar-none touch-[pan-x_pan-y]"
         aria-label={label}
         aria-roledescription="carousel"
         onTouchStart={() => {

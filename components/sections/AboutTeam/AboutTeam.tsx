@@ -99,7 +99,7 @@ export const AboutTeam = (): ReactElement => {
       {/* Mobile — ≤640px: horizontal sliding marquee */}
       <div
         ref={scrollerRef}
-        className="flex gap-6 overflow-x-auto overscroll-x-contain px-[6vw] pb-2 scrollbar-none touch-pan-x min-[641px]:hidden"
+        className="flex gap-6 overflow-x-auto overscroll-x-contain px-[6vw] pb-2 scrollbar-none touch-[pan-x_pan-y] min-[641px]:hidden"
         aria-label={team.title}
         onTouchStart={() => {
           isTouchingRef.current = true;
