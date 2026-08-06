@@ -10,23 +10,44 @@ import {
 import {
   HERO_SLIDE_INTERVAL_MS,
   heroSlides,
+  mobileHeroSlides,
+  type HeroSlide,
 } from "@/data/hero-slides";
 
 const easeLuxury = [0.65, 0, 0.35, 1] as const;
+const MOBILE_QUERY = "(max-width: 640px)";
 
 export const HeroSlideshow = (): ReactElement => {
   const prefersReducedMotion = useReducedMotion();
+  const [slides, setSlides] = useState<HeroSlide[]>(heroSlides);
   const [activeIndex, setActiveIndex] = useState(0);
   const [cycle, setCycle] = useState(0);
 
   useEffect(() => {
-    if (prefersReducedMotion || heroSlides.length < 2) {
+    const media = window.matchMedia(MOBILE_QUERY);
+
+    const syncSlides = (): void => {
+      setSlides(media.matches ? mobileHeroSlides : heroSlides);
+      setActiveIndex(0);
+      setCycle(0);
+    };
+
+    syncSlides();
+    media.addEventListener("change", syncSlides);
+
+    return () => {
+      media.removeEventListener("change", syncSlides);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion || slides.length < 2) {
       return;
     }
 
     const timer = window.setInterval(() => {
       setActiveIndex((current) => {
-        const next = (current + 1) % heroSlides.length;
+        const next = (current + 1) % slides.length;
         if (next === 0) {
           setCycle((value) => value + 1);
         }
@@ -37,9 +58,9 @@ export const HeroSlideshow = (): ReactElement => {
     return () => {
       window.clearInterval(timer);
     };
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, slides]);
 
-  const activeSlide = heroSlides[activeIndex] ?? heroSlides[0];
+  const activeSlide = slides[activeIndex] ?? slides[0];
 
   return (
     <div
@@ -50,7 +71,7 @@ export const HeroSlideshow = (): ReactElement => {
       {/* Base layer prevents empty flash between transitions */}
       <div className="absolute inset-0">
         <Image
-          src={heroSlides[0].src}
+          src={slides[0].src}
           alt=""
           fill
           priority
@@ -119,7 +140,7 @@ export const HeroSlideshow = (): ReactElement => {
         className="absolute bottom-0 left-0 right-0 z-[2] flex gap-2.5 px-[6vw] pb-5"
         aria-hidden="true"
       >
-        {heroSlides.map((slide, index) => {
+        {slides.map((slide, index) => {
           const isActive = index === activeIndex;
           const isPast = index < activeIndex;
 

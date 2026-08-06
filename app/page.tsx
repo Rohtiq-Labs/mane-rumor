@@ -19,9 +19,9 @@ const Home = (): ReactElement => {
         <Arrival />
         <Philosophy />
         <Stitch />
+        <Expertise />
         <Gallery />
         <Artist />
-        <Expertise />
         <Proof />
         <BookCta />
       </main>

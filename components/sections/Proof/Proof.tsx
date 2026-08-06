@@ -4,6 +4,7 @@ import type { ReactElement } from "react";
 import { useLocale } from "@/context/LocaleContext";
 import { testimonials } from "@/data/testimonials";
 import { RevealGroup, RevealItem } from "@/lib/motion";
+import { ProofMobileCarousel } from "./ProofMobileCarousel";
 
 export const Proof = (): ReactElement => {
   const { dictionary } = useLocale();
@@ -36,7 +37,9 @@ export const Proof = (): ReactElement => {
         </RevealItem>
       </RevealGroup>
 
-      <RevealGroup stagger={0.12}>
+      <ProofMobileCarousel quotes={proof.quotes} label={proof.label} />
+
+      <RevealGroup className="hidden min-[641px]:block" stagger={0.12}>
         {proof.quotes.map((quote, index) => (
           <RevealItem
             key={testimonials[index]?.id ?? index}
